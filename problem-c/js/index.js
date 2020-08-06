@@ -37,26 +37,45 @@ let huskyGames2016 = [
 //Define a function `extractOpponent()` that takes in a "game" object and returns
 //UW's opponent (whether or not that was the home team!)
 //You can test this by passing in an individual element from the array.
-
+function extractOpponent (game) {
+  if (game["home"] == "UW") {
+    return game["opponent"];
+  } else {
+    return game["home"];
+  }
+}
+/* test: console.log(extractOpponent({ "date":"12/31/16", "home":"UW", "opponent":"Alabama", "home_score":7, 
+"opponent_score":24, "passing_yards":150, "rushing_yards":44, "fumbles":1 })); */
 
 //Use the `map()` method and your `extractOpponent()` function to create an array
 //of UW's opponents for the season (in the same order as in the `huskyGames2016`).
 //The opponents in the list do not need to be unique.
 //Log out the opponents array.
-
+let opponents = huskyGames2016.map(extractOpponent);
+console.log(opponents);
 
 //Define a function `huskiesLost()` that takes in a "game" object and returns
 //whether or not UW lost.
-
+function huskiesLost (game) {
+  if (game["home"] == "UW" && game["home_score"] < game["opponent_score"]) {
+    return true;
+  } else if (game["opponent"] == "UW" & game["opponent_score"] < game["home_score"]) {
+    return true;
+  } else {
+    return false;
+  }
+}
 
 //Use the `filter()` method to create an array of games that UW lost (a smaller
 //array than the games they won!)
 //Log out the array of lost games.
-
+let lostGames = huskyGames2016.filter(huskiesLost);
+console.log(lostGames);
 
 //Log out an array of opponents that UW lost to. Hint: Use the `.map()` method 
 //to extract the opponent names!
-
+let winningOpponents = lostGames.map(extractOpponent);
+console.log(winningOpponents);
 
 //Use a `forEach()` loop to log out each of the games UW lost, each on its own 
 //line, in the following format:
