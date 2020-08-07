@@ -81,18 +81,34 @@ console.log(winningOpponents);
 //line, in the following format:
 //    "Rutgers at UW, 13 to 48"
 //You should use an anonymous callback function.
-
+function sentence (game) {
+  let statement = game["opponent"] + " at " + game["home"] + ", " + game["opponent_score"] + " to " + game["home_score"];
+  console.log(statement); 
+}
+lostGames.forEach(sentence);
 
 //Use the `filter()` method with an anonymous callback function to get an array
 //of games where UW had at least one fumble.
 //Log out HOW MANY games included fumbles.
-
+function fumbledGames (game) {
+  return game["fumbles"] >= 1;
+}
+huskyGames2016.filter(fumbledGames);
+console.log(huskyGames2016.filter(fumbledGames).length);
 
 //Define a function `mostYardsPassing()` that takes in two "game" objects and
 //returns the game that has a greater number of passing yards.
 //Your function should handle the case where the _first_ game has no 
 //`passing_yards` property, in which case it should return the second game.
-
+function mostYardsPassing(game1, game2) {
+  if (!("passing_yards" in game1)) {
+    return game2;
+  } else if (game2["passing_yards"] > game1["passing_yards"]) {
+    return game2;
+  } else {
+    return game1;
+  }
+}
 
 //Create a variable `mostPassingGame` that refers to the "game" that had the most
 //passing yards in the season. Use the `reduce()` method with `mostYardsPassing()`
@@ -102,8 +118,9 @@ console.log(winningOpponents);
 // - Consider: why do this with `reduce()` instead of `filter()`?
 //
 //Log out the game with the most passing yards.
-
-
+let mostPassingGame = {};
+mostPassingGame = huskyGames2016.reduce(mostYardsPassing);
+console.log(mostPassingGame);
 
 //It would be useful to be able to apply multiple "filter criteria" to an array
 //of games at once.
@@ -113,7 +130,9 @@ console.log(winningOpponents);
 //game object and returns the result of passing that object to both of the 
 //callback functions and "anding" (&&) the results. The `makeCombinedFilter()` 
 //function should then return this new function.
-
+function makeCombinedFilter (filter1, filter2) {
+  
+}
 
 //Create a variable `fumbledAndLostFilter` which is the result of calling the 
 //`makeCombinedFilter()` function and passing two callback functions: 
